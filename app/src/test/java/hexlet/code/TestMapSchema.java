@@ -2,7 +2,6 @@ package hexlet.code;
 
 import hexlet.code.schemas.BaseSchema;
 import hexlet.code.schemas.MapSchema;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Map;
 import java.util.HashMap;
@@ -12,21 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestMapSchema {
 
-    private Validator v;
-    private MapSchema schema;
-    private Map<String, String> map;
-    private Map<String, BaseSchema<String>> schemas;
-
-    @BeforeEach
-    public void beforeEach() {
-        v = new Validator();
-        schema = v.map();
-        map = new HashMap<>();
-        schemas = new HashMap<>();
-    }
+    private Validator v = new Validator();
 
     @Test
     public void test1() {
+        MapSchema schema = v.map();
+        Map<String, String> map = new HashMap<>();
         assertTrue(schema.isValid(new HashMap<>())); // true
         schema.required();
         assertFalse(schema.isValid(null)); // false
@@ -34,6 +24,8 @@ public class TestMapSchema {
 
     @Test
     public void test2() {
+        MapSchema schema = v.map();
+        Map<String, String> map = new HashMap<>();
         map.put("Hello", "Cat");
         assertTrue(schema.isValid(map)); // true
         schema.sizeof(2);
@@ -42,6 +34,8 @@ public class TestMapSchema {
 
     @Test
     public void test3() {
+        MapSchema schema = v.map();
+        Map<String, String> map = new HashMap<>();
         assertTrue(schema.isValid(null)); // true
         map.put("Hello", "Cat");
         schema.sizeof(0).required();
@@ -50,6 +44,9 @@ public class TestMapSchema {
 
     @Test
     public void test4() {
+        MapSchema schema = v.map();
+        Map<String, String> map = new HashMap<>();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("firstName", v.string().required());
         schemas.put("lastName", v.string().required().minLength(2));
         schema.shape(schemas);
@@ -60,6 +57,9 @@ public class TestMapSchema {
 
     @Test
     public void test5() {
+        MapSchema schema = v.map();
+        Map<String, String> map = new HashMap<>();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("firstName", v.string().required().contains("Misha"));
         schemas.put("lastName", v.string().required().minLength(2));
         schema.shape(schemas);
@@ -70,6 +70,9 @@ public class TestMapSchema {
 
     @Test
     public void test6() {
+        MapSchema schema = v.map();
+        Map<String, String> map = new HashMap<>();
+        Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("firstName", v.string().required());
         schemas.put("lastName", v.string().required().minLength(2));
         schema.shape(schemas);
