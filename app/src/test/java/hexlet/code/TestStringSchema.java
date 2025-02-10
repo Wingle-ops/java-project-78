@@ -26,7 +26,7 @@ public class TestStringSchema {
 
     @Test
     public void test2() {
-        schema.contains("Hello");
+        schema.contains("hello");
         assertTrue(schema.isValid("hello, Mark")); // true
         schema.contains("Victor");
         assertFalse(schema.isValid("hello, Mark")); // false
