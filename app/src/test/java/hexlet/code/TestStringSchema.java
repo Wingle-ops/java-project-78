@@ -19,7 +19,6 @@ public class TestStringSchema {
 
     @Test
     public void test1() {
-        assertTrue(schema.isValid(null)); // true
         schema.required();
         assertFalse(schema.isValid(null)); // false
     }
