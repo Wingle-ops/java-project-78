@@ -1,19 +1,18 @@
 package hexlet.code.schemas;
 
-public class StringSchema {
+public class StringSchema extends BaseSchema<String> {
 
-    private boolean isRequired;
     private int isMinLength;
     private String isContains;
 
     public StringSchema() {
-        this.isRequired = true;
-        this.isMinLength = 0;
-        this.isContains = "";
+        super();
+        this.isMinLength = 0; // по умолчанию минимальная длина 0
+        this.isContains = ""; // по умолчанию нет триггера на содержимое строки
     }
 
     public StringSchema required() {
-        this.isRequired = false;
+        isRequired = false;
         return this;
     }
 
@@ -28,16 +27,14 @@ public class StringSchema {
     }
 
     public boolean isValid(String string) {
-        if (!isRequired && string == null) {
+        return super.simile(this, string);
+    }
+
+    public boolean isStr(String string) {
+        if (string.length() < isMinLength) {
             return false;
-        }
-        if (string != null) {
-            if (string.length() < isMinLength) {
-                return false;
-            }
-            if (!string.toLowerCase().contains(isContains.toLowerCase())) {
-                return false;
-            }
+        } else if (!string.toLowerCase().contains(isContains.toLowerCase())) {
+            return false;
         }
         return true;
     }

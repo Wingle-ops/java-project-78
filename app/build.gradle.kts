@@ -1,8 +1,8 @@
 plugins {
-    id("java")
-    id("jacoco")
-    id("checkstyle")
+    id("com.github.ben-manes.versions") version "0.48.0"
     application
+    jacoco
+    checkstyle
 }
 
 group = "hexlet.code"
@@ -20,12 +20,10 @@ checkstyle {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    compileOnly ("org.projectlombok:lombok:1.18.24")
-    annotationProcessor ("org.projectlombok:lombok:1.18.24")
 }
 
 application {
-    mainClass = "hexlet.code.App"
+    mainClass = "hexlet.code.Main"
 }
 
 tasks.test {
