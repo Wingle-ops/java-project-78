@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class TestNumberSchema {
+public final class TestNumberSchema {
 
     private Validator v;
     private NumberSchema schema;
