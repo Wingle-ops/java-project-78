@@ -14,7 +14,7 @@ public class BaseSchema<T> {
         this.isRequired = true; // По умолчанию разрешается null
     }
 
-    public boolean simile(Object object, Object data) {
+    public final boolean simile(Object object, Object data) {
         if (!isRequired && (data == null || data.equals(""))) {
             return false;
         }
