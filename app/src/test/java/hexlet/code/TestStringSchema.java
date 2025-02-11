@@ -18,6 +18,26 @@ public class TestStringSchema {
     }
 
     @Test
+    public void testStringValidator() {
+        assertTrue(schema.isValid(""));
+
+        schema.required();
+        assertTrue(schema.isValid("what does the fox say"));
+        assertTrue(schema.isValid("hexlet"));
+        assertFalse(schema.isValid(""));
+        assertFalse(schema.isValid(null));
+
+        schema.minLength(7);
+        assertTrue(schema.isValid("what does the fox say"));
+        assertFalse(schema.isValid("hexlet"));
+
+        assertTrue(schema.contains("what").isValid("what does the fox say"));
+        assertFalse(schema.contains("whatthe").isValid("what does the fox say"));
+        var schema1 = v.string().required().minLength(10).minLength(4);
+        assertTrue(schema1.isValid("hexlet"));
+    }
+
+    @Test
     public void test1() {
         schema.required();
         assertFalse(schema.isValid(null)); // false
@@ -37,7 +57,6 @@ public class TestStringSchema {
         assertTrue(schema.isValid("hello, Mark")); // true
         schema.minLength(15);
         assertFalse(schema.isValid("hello, Mark")); // false
-
     }
 
     @Test

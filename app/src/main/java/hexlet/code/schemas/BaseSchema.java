@@ -11,7 +11,7 @@ public class BaseSchema<T> {
     }
 
     public boolean simile(Object object, Object data) {
-        if (!isRequired && data == null) {
+        if (!isRequired && (data == null || data.equals(""))) {
             return false;
         }
         if (data != null) {
