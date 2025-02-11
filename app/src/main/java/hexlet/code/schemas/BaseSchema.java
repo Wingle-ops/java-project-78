@@ -2,6 +2,10 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
+/**
+ * @param <T> Тип, которым типизируется класс наследник
+ */
+
 public class BaseSchema<T> {
 
     protected boolean isRequired;
