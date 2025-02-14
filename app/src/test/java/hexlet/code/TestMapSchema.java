@@ -79,22 +79,6 @@ public final class TestMapSchema {
     }
 
     @Test
-    public void testLesson1() {
-        schema.isValid(null); // true
-        schema.required();
-        schema.isValid(null); // false
-
-        schema.isValid(new HashMap<>()); // true
-        var data = new HashMap<String, String>();
-        data.put("key1", "value1");
-        schema.isValid(data); // true
-        schema.sizeof(2);
-        schema.isValid(data);  // false
-        data.put("key2", "value2");
-        schema.isValid(data); // true
-    }
-
-    @Test
     public void testMapValidator() {
         schemas.put("firstName", v.string().required());
         schemas.put("lastName", v.string().required().minLength(2));
@@ -103,16 +87,16 @@ public final class TestMapSchema {
         Map<String, String> human1 = new HashMap<>();
         human1.put("firstName", "John");
         human1.put("lastName", "Smith");
-        schema.isValid(human1); // true
+        assertTrue(schema.isValid(human1)); // true
 
         Map<String, String> human2 = new HashMap<>();
         human2.put("firstName", "John");
         human2.put("lastName", null);
-        schema.isValid(human2); // false
+        assertFalse(schema.isValid(human2)); // false
 
         Map<String, String> human3 = new HashMap<>();
         human3.put("firstName", "Anna");
         human3.put("lastName", "B");
-        schema.isValid(human3); // false
+        assertFalse(schema.isValid(human3)); // false
     }
 }
