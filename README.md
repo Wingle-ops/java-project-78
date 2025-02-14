@@ -1,9 +1,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/Wingle-ops/java-project-78/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Wingle-ops/java-project-78/actions)
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/10c4717396feb0fd0841/maintainability)](https://codeclimate.com/github/Wingle-ops/java-project-78/maintainability)
-
-[![Test Coverage](https://api.codeclimate.com/v1/badges/10c4717396feb0fd0841/test_coverage)](https://codeclimate.com/github/Wingle-ops/java-project-78/test_coverage)Цель
+[![Test Coverage](https://api.codeclimate.com/v1/badges/10c4717396feb0fd0841/test_coverage)](https://codeclimate.com/github/Wingle-ops/java-project-78/test_coverage)
 
 Валидатор данных – проект, направленный на прокачку проектирования архитектуры в объектно-ориентированном стиле. Здесь вам понадобится применять практически все, чему вы научились в курсах по ООП: проектирование структуры классов, композиция объектов, возможно наследование и, обязательно, fluent-интерфейс. Вам придется задумываться о глобальном и локальном состоянии, думать о расширяемости кода без его переписывания, соблюдать SOLID принципы.
 Описание
