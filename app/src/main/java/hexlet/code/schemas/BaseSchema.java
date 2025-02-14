@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
-/// **
+///**
 //* @param <T> Тип, которым типизируется класс наследник
 // */
 
