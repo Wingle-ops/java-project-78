@@ -95,7 +95,7 @@ public final class TestMapSchema {
     }
 
     @Test
-    public void testLesson2() {
+    public void testMapValidator() {
         schemas.put("firstName", v.string().required());
         schemas.put("lastName", v.string().required().minLength(2));
         schema.shape(schemas);
