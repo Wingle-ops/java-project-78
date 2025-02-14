@@ -1,41 +1,24 @@
 package hexlet.code.schemas;
 
+import java.util.function.Predicate;
+
 public final class StringSchema extends BaseSchema<String> {
 
-    private int isMinLength;
-    private String isContains;
-
-    public StringSchema() {
-        super();
-        this.isMinLength = 0; // по умолчанию минимальная длина 0
-        this.isContains = ""; // по умолчанию нет триггера на содержимое строки
-    }
-
     public StringSchema required() {
-        isRequired = false;
+        Predicate<String> isRequired = str -> str != null && !str.isEmpty();
+        addCheck("isRequired", isRequired);
         return this;
     }
 
     public StringSchema minLength(int num) {
-        this.isMinLength = num;
+        Predicate<String> length = str -> str.length() >= num;
+        addCheck("Length", length);
         return this;
     }
 
-    public StringSchema contains(String str) {
-        this.isContains = str;
+    public StringSchema contains(String string) {
+        Predicate<String> contain = str -> str.contains(string);
+        addCheck("Contains", contain);
         return this;
-    }
-
-    public boolean isValid(String string) {
-        return super.simile(this, string);
-    }
-
-    public boolean isStr(String string) {
-        if (string.length() < isMinLength) {
-            return false;
-        } else if (!string.toLowerCase().contains(isContains.toLowerCase())) {
-            return false;
-        }
-        return true;
     }
 }

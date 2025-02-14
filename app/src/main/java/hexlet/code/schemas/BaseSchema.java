@@ -1,31 +1,30 @@
 package hexlet.code.schemas;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
-/**
- * @param <T> Тип, которым типизируется класс наследник
- */
+/// **
+// * @param <T> Тип, которым типизируется класс наследник
+// */
 
 public class BaseSchema<T> {
 
-    protected boolean isRequired;
+    protected Map<String, Predicate<T>> checks = new LinkedHashMap<>();
 
-    BaseSchema() {
-        this.isRequired = true; // По умолчанию разрешается null
+    protected final void addCheck(String check, Predicate<T> rule) {
+        checks.put(check, rule);
     }
 
-    public final boolean simile(Object object, Object data) {
-        if (!isRequired && (data == null || data.equals(""))) {
+    public final boolean isValid(Object data) {
+        if (checks.containsKey("isRequired") && data == null) {
             return false;
         }
         if (data != null) {
-            if (object instanceof StringSchema) {
-                return ((StringSchema) object).isStr(data.toString());
-            } else if (object instanceof NumberSchema) {
-                Double dataD = ((Number) data).doubleValue();
-                return ((NumberSchema) object).isNum(dataD);
-            } else if (object instanceof MapSchema) {
-                return ((MapSchema) object).isMap((Map<String, String>) data);
+            for (String check : checks.keySet()) {
+                if (!checks.get(check).test((T) data)) {
+                    return false;
+                }
             }
         }
         return true;

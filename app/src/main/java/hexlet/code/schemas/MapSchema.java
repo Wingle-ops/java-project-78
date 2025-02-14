@@ -1,48 +1,32 @@
 package hexlet.code.schemas;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public final class MapSchema extends BaseSchema<Map> {
 
-    private int sizeMap;
-    private Map<String, StringSchema> controlMap;
-
-    public MapSchema() {
-        super();
-        this.sizeMap = 0;
-        controlMap = new HashMap<>();
-    }
-
     public MapSchema required() {
-        this.isRequired = false;
+        Predicate<Map> isRequired = map -> !map.isEmpty();
+        addCheck("isRequired", isRequired);
         return this;
     }
 
     public MapSchema sizeof(int size) {
-        this.sizeMap = size;
+        Predicate<Map> mapSize = map -> map.size() == size;
+        addCheck("mapSize", mapSize);
         return this;
     }
 
-    public boolean isValid(Map<String, String> map) {
-        return super.simile(this, map);
-    }
-
-    public boolean isMap(Map<String, String> map) {
-        if (!controlMap.isEmpty()) {
-            for (Map.Entry<String, String> el : map.entrySet()) {
-                StringSchema schema = controlMap.get(el.getKey());
-                if (schema == null || !schema.isValid(el.getValue())) {
+    public MapSchema shape(Map<String, BaseSchema<String>> map) {
+        Predicate<Map> isShape = ((value) -> {
+            for (String key : map.keySet()) {
+                if (!map.get(key).isValid(value.get(key))) {
                     return false;
                 }
             }
-        }
-        return map.size() >= sizeMap;
-    }
-
-    public void shape(Map<String, BaseSchema<String>> map) {
-        for (Map.Entry<String, BaseSchema<String>> el : map.entrySet()) {
-            controlMap.put(el.getKey(), (StringSchema) el.getValue());
-        }
+            return true;
+        });
+        addCheck("isShape", isShape);
+        return this;
     }
 }

@@ -1,50 +1,24 @@
 package hexlet.code.schemas;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.function.Predicate;
 
-public final class NumberSchema extends BaseSchema<Number> {
-
-    private boolean isPositive;
-    private List<Number> isRange;
-
-    public NumberSchema() {
-        super();
-        this.isPositive = false; // по умолчанию указываем, что число может быть положительным или отрицательным
-        this.isRange = new ArrayList<>(Arrays.asList(Double.MIN_VALUE, Double.MAX_VALUE));
-    }
+public final class NumberSchema extends BaseSchema<Integer> {
 
     public NumberSchema required() {
-        this.isRequired = false;
+        Predicate<Integer> isRequired = num -> num != null;
+        addCheck("isRequired", isRequired);
         return this;
     }
 
     public NumberSchema positive() {
-        this.isPositive = true;
+        Predicate<Integer> isPositive = num -> num > 0;
+        addCheck("isPositive", isPositive);
         return this;
     }
 
-    public NumberSchema range(Number numMin, Number numMax) {
-        if (numMin == null || numMax == null) {
-            throw new IllegalArgumentException("Нельзя передавать в качестве параметра null");
-        }
-        isRange.set(0, numMin);
-        isRange.set(1, numMax);
+    public NumberSchema range(int numMin, int numMax) {
+        Predicate<Integer> isRange = num -> num >= numMin && num <= numMax;
+        addCheck("isRange", isRange);
         return this;
-    }
-
-    public boolean isValid(Number number) {
-        return super.simile(this, number);
-    }
-
-    public boolean isNum(Double number) {
-        if (isPositive && number < 0) {
-            return false;
-        }
-        if (number < isRange.get(0).doubleValue() || number > isRange.get(1).doubleValue()) {
-            return false;
-        }
-        return true;
     }
 }
