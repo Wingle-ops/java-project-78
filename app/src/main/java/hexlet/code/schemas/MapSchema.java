@@ -18,26 +18,13 @@ public final class MapSchema extends BaseSchema<Map> {
     }
 
     public MapSchema shape(Map<String, BaseSchema<String>> map) {
-        Predicate<Map> isShape = ((value) -> {
-            for (String key : map.keySet()) {
-                for (Object el : value.keySet()) {
-                    StringSchema str = (StringSchema) map.get(key);
-                    if (!el.equals(key) || !str.isValid(value.get(el))) {
-                        return false;
-                    }
-                }
-            }
-//            for (String key : map.keySet()) {
-//                BaseSchema<String> str = map.get(key);
-//                Predicate<String> newStr = str -> str;
-//                addCheck("mapTest", );
-//                if (!str.isValid(value.get(key))) {
-//                    return false;
-//                }
-//            }
-            return true;
-        });
-        addCheck("isShape", isShape);
+        Predicate<Object> predicate = o -> {
+            return map.keySet()
+                    .stream()
+                    .allMatch(k -> map.get(k).isValid(((Map) o).get(k)));
+
+        };
+        addCheck("shape", predicate);
         return this;
     }
 }

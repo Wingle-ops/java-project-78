@@ -12,7 +12,7 @@ public class BaseSchema<T> {
 
     protected Map<String, Predicate<T>> checks = new LinkedHashMap<>();
 
-    protected final void addCheck(String check, Predicate<T> rule) {
+    protected final void addCheck(String check, Predicate rule) {
         checks.put(check, rule);
     }
 
