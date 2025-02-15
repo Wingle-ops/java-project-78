@@ -19,7 +19,9 @@ public final class MapSchema extends BaseSchema<Map> {
 
     public MapSchema shape(Map<String, BaseSchema<String>> schemas) {
         Predicate<Map> shape = map -> {
-            if (map == null) return false; // Проверка на null
+            if (map == null) {
+                return false;
+            }
             return schemas.entrySet().stream().allMatch(schema ->
                     map.containsKey(schema.getKey()) && schema.getValue().isValid(map.get(schema.getKey()))
             );
