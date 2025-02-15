@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 public final class StringSchema extends BaseSchema<String> {
 
     public StringSchema required() {
-        required = true;
+        required = false;
         return this;
     }
 

@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 public class BaseSchema<T> {
 
     protected Map<String, Predicate<T>> checks = new LinkedHashMap<>();
-    protected boolean required = false;
+    protected boolean required = true;
 
     protected final void addCheck(String check, Predicate rule) {
         checks.put(check, rule);

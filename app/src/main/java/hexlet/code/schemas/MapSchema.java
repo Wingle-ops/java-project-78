@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 public final class MapSchema extends BaseSchema<Map> {
 
     public MapSchema required() {
-        required = true;
+        required = false;
         return this;
     }
 
