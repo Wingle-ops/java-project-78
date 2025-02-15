@@ -5,8 +5,7 @@ import java.util.function.Predicate;
 public final class NumberSchema extends BaseSchema<Integer> {
 
     public NumberSchema required() {
-        Predicate<Integer> isRequired = num -> num != null;
-        addCheck("isRequired", isRequired);
+        required = true;
         return this;
     }
 

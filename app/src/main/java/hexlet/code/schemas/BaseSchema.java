@@ -11,16 +11,17 @@ import java.util.function.Predicate;
 public class BaseSchema<T> {
 
     protected Map<String, Predicate<T>> checks = new LinkedHashMap<>();
+    protected boolean required = false;
 
     protected final void addCheck(String check, Predicate rule) {
         checks.put(check, rule);
     }
 
     public final boolean isValid(Object data) {
-        if (checks.containsKey("isRequired") && data == null) {
+        if (!required && (data == null || data.equals(""))) {
             return false;
         }
-        if (data != null) {
+        if (data != null && !data.equals("")) {
             for (String check : checks.keySet()) {
                 if (!checks.get(check).test((T) data)) {
                     return false;

@@ -6,8 +6,7 @@ import java.util.function.Predicate;
 public final class MapSchema extends BaseSchema<Map> {
 
     public MapSchema required() {
-        Predicate<Map> isRequired = map -> !map.isEmpty();
-        addCheck("isRequired", isRequired);
+        required = true;
         return this;
     }
 
@@ -18,13 +17,15 @@ public final class MapSchema extends BaseSchema<Map> {
     }
 
     public MapSchema shape(Map<String, BaseSchema<String>> map) {
-        Predicate<Object> predicate = o -> {
-            return map.keySet()
-                    .stream()
-                    .allMatch(k -> map.get(k).isValid(((Map) o).get(k)));
+        Predicate<Map> isShape = ((value) -> {
+            return map.entrySet().stream().allMatch(entry -> {
+                String key = entry.getKey();
+                BaseSchema<String> schema = entry.getValue();
+                return value.containsKey(key) && schema.isValid(value.get(key));
+            });
 
-        };
-        addCheck("shape", predicate);
+        });
+        addCheck("isShape", isShape);
         return this;
     }
 }
