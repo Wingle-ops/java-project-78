@@ -17,16 +17,27 @@ public final class MapSchema extends BaseSchema<Map> {
         return this;
     }
 
-    public MapSchema shape(Map<String, BaseSchema<String>> schemas) {
-        Predicate<Map> shape = map -> {
-            if (map == null) {
-                return false;
+    public MapSchema shape(Map<String, BaseSchema<String>> map) {
+        Predicate<Map> isShape = ((value) -> {
+            for (String key : map.keySet()) {
+                for (Object el : value.keySet()) {
+                    StringSchema str = (StringSchema) map.get(key);
+                    if (!el.equals(key) || !str.isValid(value.get(el))) {
+                        return false;
+                    }
+                }
             }
-            return schemas.entrySet().stream().allMatch(schema ->
-                    map.containsKey(schema.getKey()) && schema.getValue().isValid(map.get(schema.getKey()))
-            );
-        };
-        addCheck("shape", shape);
+//            for (String key : map.keySet()) {
+//                BaseSchema<String> str = map.get(key);
+//                Predicate<String> newStr = str -> str;
+//                addCheck("mapTest", );
+//                if (!str.isValid(value.get(key))) {
+//                    return false;
+//                }
+//            }
+            return true;
+        });
+        addCheck("isShape", isShape);
         return this;
     }
 }
